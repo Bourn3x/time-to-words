@@ -33,9 +33,9 @@ const mapNumberToString = {
 
 // expecting time to be a string in the format like '8:15' or '12:30'
 function convertTimeToWords(time) {
-  const [hour, minute] = time.split(":");
-  const minuteNumber = Number(minute);
-  const hourNumber = Number(hour);
+  const [hourString, minuteString] = time.split(":");
+  const minute = Number(minuteString);
+  const hour = Number(hourString);
 
   if (time === "0:00") {
     return "midnight";
@@ -45,18 +45,18 @@ function convertTimeToWords(time) {
     return "midday";
   }
 
-  if (minuteNumber === 0) {
-    return `${mapNumberToString[hourNumber]} o'clock`;
+  if (minute === 0) {
+    return `${mapNumberToString[hour]} o'clock`;
   }
 
-  if (minuteNumber <= 30) {
-    return `${mapNumberToString[minuteNumber]} past ${mapNumberToString[hourNumber]}`;
+  if (minute <= 30) {
+    return `${mapNumberToString[minute]} past ${mapNumberToString[hour]}`;
   }
 
-  if (minuteNumber > 30 && minuteNumber <= 59) {
-    const remainingMinutes = 60 - minuteNumber;
+  if (minute > 30 && minute <= 59) {
+    const remainingMinutes = 60 - minute;
     return `${mapNumberToString[remainingMinutes]} to ${
-      mapNumberToString[(hourNumber + 1) % 12]
+      mapNumberToString[(hour + 1) % 12]
     }`;
   }
 }
